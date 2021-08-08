@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_app">بروزرسانی برنامه</string>
+    <string name="message_delete_app">در صورت نصب نشدن برنامه آن را حذف کنید و مجددا از سایت دریافت کنید.</string>
+    <string name="message_new_version">نسخه جاری برنامه %s است. لطفا آن را به جدیدترین نسخه %s ارتقا دهید.</string>
+    <string name="app_change">تغییرات برنامه</string>
+    <string name="message_success_update">بروزرسانی با موفقیت انجام شد.</string>
+    <string name="retry">تلاش مجدد</string>
+    <string name="title_activity_update">بروزرسانی برنامه</string>
+    <string name="action_settings">تنظیمات</string>
+    <string name="not_now">فعلا نه!</string>
+
+</resources>

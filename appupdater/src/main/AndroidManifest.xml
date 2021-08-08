@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ir.malihehmoradi.appupdater">
+
+    <application>
+        <activity
+            android:name=".activity.UpdateActivity"
+            android:label="@string/title_activity_update"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar" />
+    </application>
+
+</manifest>
