@@ -9,4 +9,7 @@
     <string name="title_activity_update">Update App</string>
     <string name="action_settings">Settings</string>
     <string name="not_now">Not Now!</string>
+    <string name="update">Update</string>
+    <string name="recent_changes">Recent changes</string>
+    <string name="caption">Dear customer, you are using the old version of the application. Please update your application.</string>
 </resources>

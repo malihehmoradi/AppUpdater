@@ -9,5 +9,8 @@
     <string name="title_activity_update">بروزرسانی برنامه</string>
     <string name="action_settings">تنظیمات</string>
     <string name="not_now">فعلا نه!</string>
+    <string name="update">بروزرسانی</string>
+    <string name="recent_changes">تغییرات اخیر</string>
+    <string name="caption">مشتری گرامی، شما در حال استفاده از نسخه قدیمی اپلیکیشن هستید. لطفاً اپلیکیشن خود را بروزرسانی کنید.</string>
 
 </resources>
