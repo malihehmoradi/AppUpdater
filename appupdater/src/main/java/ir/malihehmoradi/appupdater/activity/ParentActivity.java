@@ -1,11 +1,14 @@
 package ir.malihehmoradi.appupdater.activity;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import ir.malihehmoradi.appupdater.helper.LocaleManager;
 
 public class ParentActivity extends AppCompatActivity {
 
@@ -19,16 +22,16 @@ public class ParentActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
 
-//        String language = "fa";
-//        val localeManager = LocaleManager(newBase, language)
-//        super.attachBaseContext(ViewPumpContextWrapper.wrap(localeManager.wrap() !!))
-//        applyOverrideConfiguration(localeManager.getConfiguration())
+        String language = "fa";
+        LocaleManager localeManager = new LocaleManager(newBase, language);
+        super.attachBaseContext(localeManager.wrap());
+        applyOverrideConfiguration(localeManager.getConfiguration());
     }
 
 
-
-//    override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
-//        super.applyOverrideConfiguration(overrideConfiguration)
-//    }
+    @Override
+    public void applyOverrideConfiguration(Configuration overrideConfiguration) {
+        super.applyOverrideConfiguration(overrideConfiguration);
+    }
 
 }

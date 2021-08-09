@@ -1,6 +1,9 @@
 package ir.malihehmoradi.appupdater.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -18,6 +21,7 @@ import com.liulishuo.filedownloader.FileDownloader;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import java.io.File;
 
@@ -36,7 +40,6 @@ public class UpdateActivity extends ParentActivity {
     private Button btn_send;
     private TextView txt_cancel;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,7 @@ public class UpdateActivity extends ParentActivity {
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         collapsingToolbarLayout.setTitle(getTitle());
+
 
         initView();
     }
@@ -110,6 +114,10 @@ public class UpdateActivity extends ParentActivity {
     }
 
     private void downloadApp(String appUrl) {
+
+        //Get permission of read and write on files
+        checkStorageGranted();
+
 
         String fileName = "Vahram" + "_v" + appConfig.versionName + ".apk";
         String destinationPath = Environment.getExternalStorageDirectory() + "/" + "Vahram" + "/" + fileName;
@@ -223,6 +231,14 @@ public class UpdateActivity extends ParentActivity {
                 .setMinIntervalUpdateSpeed(400)
                 .setListener(fileDownloadListener)
                 .start();
+    }
+
+    public void checkStorageGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(UpdateActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        }
     }
 
 }
