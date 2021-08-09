@@ -61,7 +61,6 @@ public class UpdateActivity extends ParentActivity {
         appConfig = new Gson().fromJson(appConfigStr, ApplicationConfig.class);
     }
 
-
     private void initView() {
         TextView txt_appVersion = findViewById(R.id.txt_appVersion);
         TextView txt_description = findViewById(R.id.txt_description);
