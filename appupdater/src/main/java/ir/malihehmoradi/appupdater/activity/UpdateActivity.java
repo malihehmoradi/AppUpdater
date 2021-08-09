@@ -25,7 +25,7 @@ import ir.malihehmoradi.appupdater.R;
 import ir.malihehmoradi.appupdater.helper.Helper;
 import ir.malihehmoradi.appupdater.model.ApplicationConfig;
 
-public class UpdateActivity extends AppCompatActivity {
+public class UpdateActivity extends ParentActivity {
 
     private static final String TAG = "UpdateActivity";
     private ApplicationConfig appConfig;
