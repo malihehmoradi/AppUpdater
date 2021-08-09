@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@drawable/bg_gradient"
     tools:context=".activity.UpdateActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -27,6 +28,18 @@
             app:layout_scrollFlags="scroll"
             app:toolbarId="@+id/toolbar">
 
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="4dp"
+                app:elevation="20dp"
+                app:layout_collapseMode="pin"
+                android:layout_marginTop="20dp"
+                app:layout_collapseParallaxMultiplier="0.8"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:srcCompat="@drawable/ic_update" />
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -34,17 +47,34 @@
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:popupTheme="@style/Theme.MaterialComponents.Light"
-                app:titleTextColor="@android:color/white" />
+                app:titleTextColor="@android:color/white">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-                android:padding="16dp"
-                app:elevation="20dp"
-                app:srcCompat="@drawable/ic_update" />
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="horizontal">-->
+
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="50dp"-->
+                <!--                        android:layout_height="50dp"-->
+                <!--                        android:layout_gravity="bottom|start"-->
+                <!--                        android:layout_marginLeft="20dp"-->
+                <!--                        android:padding="4dp"-->
+                <!--                        app:elevation="20dp"-->
+                <!--                        app:srcCompat="@drawable/ic_update" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:text="MMMMMMM"-->
+                <!--                        android:textColor="@android:color/white"-->
+                <!--                        android:textStyle="bold" />-->
+
+                <!--                </LinearLayout>-->
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

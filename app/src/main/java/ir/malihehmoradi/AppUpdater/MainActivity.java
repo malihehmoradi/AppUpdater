@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         new UpdateChecker(
                 this,
                 "1.0.1",
-                "View optimization",
+                "بهینه سازی برنامه",
                 "http://appcdn.atishahr.net:8080/application/app.apk",
                 "1.0.0")
                 .check();

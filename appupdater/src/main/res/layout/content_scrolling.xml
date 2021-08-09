@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorPrimary"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity.UpdateActivity"
     tools:showIn="@layout/activity_update"
     tools:targetApi="lollipop">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,49 +20,21 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_weight="1">
-
-            </LinearLayout>
+                android:layout_height="200dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#9C9C9C"
-                android:minHeight="600dp"
-                android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingTop="250dp"
-                android:paddingRight="16dp">
-
-                <TextView
-                    android:id="@+id/txt_descriptionTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recent_changes"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:padding="4dp"
-                    android:textColor="#373636"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
+                android:layout_height="200dp" />
 
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="50dp">
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -209,19 +180,21 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_weight="0.4"
-                        android:text="@string/update" />
+                        android:text="@string/update"
+                        android:textAllCaps="false" />
 
                     <TextView
                         android:id="@+id/txt_cancel"
                         style="?android:borderlessButtonStyle"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_weight="0.4"
                         android:gravity="center"
                         android:text="@string/not_now"
+                        android:textAllCaps="false"
                         android:textColor="#424242"
                         android:textSize="14sp" />
 
@@ -231,6 +204,33 @@
 
         </androidx.cardview.widget.CardView>
 
-    </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cardView"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/txt_descriptionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recent_changes"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:textColor="#373636"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>
