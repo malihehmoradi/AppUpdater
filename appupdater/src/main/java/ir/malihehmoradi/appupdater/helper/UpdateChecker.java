@@ -1,19 +1,16 @@
 package ir.malihehmoradi.appupdater.helper;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 
-import com.google.gson.Gson;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
-import ir.malihehmoradi.appupdater.activity.UpdateActivity;
-import ir.malihehmoradi.appupdater.dialog.UpdaterDialog;
+import ir.malihehmoradi.appupdater.fragment.UpdateFragment;
 import ir.malihehmoradi.appupdater.model.ApplicationConfig;
 
 public class UpdateChecker {
 
-    private final Activity activity;
+    private final AppCompatActivity activity;
     private final String versionName;
     private final String changes;
     private final String appUrl;
@@ -28,7 +25,7 @@ public class UpdateChecker {
      * @param appUrl
      * @param necessaryVersion
      */
-    public UpdateChecker(Activity activity, String versionName, String changes, String appUrl, String necessaryVersion) {
+    public UpdateChecker(AppCompatActivity activity, String versionName, String changes, String appUrl, String necessaryVersion) {
         this.activity = activity;
         this.versionName = versionName;
         this.changes = changes;
@@ -42,7 +39,13 @@ public class UpdateChecker {
     }
 
     public interface OnFailListener {
+
+        void onSuccess();
+
+        void onCancel();
+
         void onFail();
+
     }
 
     public void check() {
@@ -53,45 +56,43 @@ public class UpdateChecker {
 
             if (Helper.compareVersionNames(packageInfo.versionName, versionName) < 0) {
 
-                //Display update
-//                UpdaterDialog updateDialog = new UpdaterDialog(activity, versionName, changes,appUrl,necessaryVersion );
-//                updateDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                    @Override
-//                    public void onDismiss(DialogInterface dialog) {
-//
-//                        if (onFailListener != null) {
-//                            onFailListener.onFail();
-//                        }
-//
-//                    }
-//                });
-//                updateDialog.show();
-
-                ApplicationConfig appConfig=new ApplicationConfig();
-                appConfig.versionName=versionName;
-                appConfig.changes=changes;
-                appConfig.appUrl=appUrl;
-                appConfig.necessaryVersion=necessaryVersion;
+                ApplicationConfig appConfig = new ApplicationConfig();
+                appConfig.versionName = versionName;
+                appConfig.changes = changes;
+                appConfig.appUrl = appUrl;
+                appConfig.necessaryVersion = necessaryVersion;
 
 
+                UpdateFragment updateFragment = new UpdateFragment(appConfig);
+                updateFragment.setOnFailUpdate(new UpdateFragment.OnUpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        if (onFailListener != null) {
+                            onFailListener.onSuccess();
+                        }
+                    }
 
-                Intent intent = new Intent(activity, UpdateActivity.class);
-                intent.putExtra("AppConfig",new Gson().toJson(appConfig));
-                activity.startActivity(intent);
+                    @Override
+                    public void onCancel() {
+                        if (onFailListener != null) {
+                            onFailListener.onCancel();
+                        }
+                    }
 
+                    @Override
+                    public void onFail() {
+                        if (onFailListener != null) {
+                            onFailListener.onFail();
+                        }
+                    }
+                });
+                FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+                updateFragment.show(fragmentTransaction, updateFragment.getTag());
 
-            } else {
-                if (onFailListener != null) {
-                    onFailListener.onFail();
-                }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-
-            if (onFailListener != null) {
-                onFailListener.onFail();
-            }
         }
     }
 
