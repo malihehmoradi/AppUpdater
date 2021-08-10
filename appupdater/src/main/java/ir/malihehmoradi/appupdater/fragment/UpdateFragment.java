@@ -100,7 +100,7 @@ public class UpdateFragment extends DialogFragment {
             //
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//                dialog.getWindow().setStatusBarColor(getActivity().getResources().getDimension(R.color.pri));
+                dialog.getWindow().setStatusBarColor(Color.TRANSPARENT);
             }
 
 

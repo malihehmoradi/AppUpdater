@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/CollapsedTextAppearance"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@android:color/transparent"
             app:expandedTitleTextAppearance="@style/ExpandedTextAppearance"
             app:layout_scrollFlags="scroll"
             app:title="@string/update_app"
