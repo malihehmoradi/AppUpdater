@@ -57,6 +57,7 @@
                         android:text="@string/caption"
                         android:textColor="@android:color/black"
                         android:textSize="17sp"
+                        android:lineSpacingExtra="3dp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -225,6 +226,7 @@
                 android:id="@+id/txt_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lineSpacingExtra="3dp"
                 android:padding="6dp"
                 android:textColor="#373636"
                 android:textSize="14sp" />
