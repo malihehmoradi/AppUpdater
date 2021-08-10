@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,17 +25,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
-import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
-import com.liulishuo.filedownloader.services.DownloadMgrInitialParams;
 import com.liulishuo.filedownloader.util.FileDownloadLog;
-
 import java.io.File;
-
 import ir.malihehmoradi.appupdater.R;
 import ir.malihehmoradi.appupdater.helper.Helper;
 import ir.malihehmoradi.appupdater.model.ApplicationConfig;
@@ -140,8 +135,15 @@ public class UpdateFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        CollapsingToolbarLayout collapsingToolbarLayout = view.findViewById(R.id.toolbar_layout);
-//        collapsingToolbarLayout.setTitle(getResources().getString(R.string.update_app));
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                //Get permission of read and write on files
+                checkStorageGranted();
+            }
+        }, 3000);
 
         initView(view);
     }
@@ -190,17 +192,16 @@ public class UpdateFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-                downloadApp(appConfig.appUrl);
+
+                if (checkStorageGranted()) {
+                    downloadApp(appConfig.appUrl);
+                }
 
             }
         });
     }
 
     private void downloadApp(String appUrl) {
-
-        //Get permission of read and write on files
-        checkStorageGranted();
-
 
         String fileName = "Vahram" + "_v" + appConfig.versionName + ".apk";
         String destinationPath = Environment.getExternalStorageDirectory() + "/" + "Vahram" + "/" + fileName;
@@ -321,13 +322,16 @@ public class UpdateFragment extends DialogFragment {
                 .start();
     }
 
-    public void checkStorageGranted() {
+    public boolean checkStorageGranted() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
             }
         }
+        return true;
     }
+
 
     public UpdateFragment setOnFailUpdate(OnUpdateListener onUpdateListener) {
         this.onUpdateListener = onUpdateListener;
