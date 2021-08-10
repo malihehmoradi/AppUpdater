@@ -24,9 +24,9 @@
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/CollapsedTextAppearance"
             app:contentScrim="?attr/colorPrimary"
-            app:title="@string/update_app"
             app:expandedTitleTextAppearance="@style/ExpandedTextAppearance"
             app:layout_scrollFlags="scroll"
+            app:title="@string/update_app"
             app:toolbarId="@+id/toolbar">
 
             <ImageView
@@ -50,32 +50,7 @@
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:popupTheme="@style/Theme.MaterialComponents.Light"
-                app:titleTextColor="@android:color/white">
-
-                <!--                <LinearLayout-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:orientation="horizontal">-->
-
-                <!--                    <ImageView-->
-                <!--                        android:layout_width="50dp"-->
-                <!--                        android:layout_height="50dp"-->
-                <!--                        android:layout_gravity="bottom|start"-->
-                <!--                        android:layout_marginLeft="20dp"-->
-                <!--                        android:padding="4dp"-->
-                <!--                        app:elevation="20dp"-->
-                <!--                        app:srcCompat="@drawable/ic_update" />-->
-
-                <!--                    <TextView-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:text="MMMMMMM"-->
-                <!--                        android:textColor="@android:color/white"-->
-                <!--                        android:textStyle="bold" />-->
-
-                <!--                </LinearLayout>-->
-            </androidx.appcompat.widget.Toolbar>
+                app:titleTextColor="@android:color/white" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
