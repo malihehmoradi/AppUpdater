@@ -1,4 +1,4 @@
-package ir.malihehmoradi.appupdater.helper;
+package ir.malihehmoradi.AppUpdater;
 
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -23,9 +23,6 @@ public class LocaleManager extends ContextWrapper {
     }
 
     public Context wrap() {
-
-        languageCode = "fa";//ToDo
-
         Resources res = getBaseContext().getResources();
         configuration = new Configuration(res.getConfiguration());
         DisplayMetrics dm = res.getDisplayMetrics();

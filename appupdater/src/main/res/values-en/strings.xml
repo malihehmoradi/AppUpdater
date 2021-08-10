@@ -11,5 +11,5 @@
     <string name="not_now">Not Now!</string>
     <string name="update">Update</string>
     <string name="recent_changes">Recent changes</string>
-    <string name="caption">Dear customer, you are using the old version of the application. Please update your application.</string>
+    <string name="caption">Dear user, you are using the old version of the application. Please update your application.</string>
 </resources>

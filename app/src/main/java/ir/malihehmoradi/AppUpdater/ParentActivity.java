@@ -1,4 +1,4 @@
-package ir.malihehmoradi.appupdater.activity;
+package ir.malihehmoradi.AppUpdater;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -7,8 +7,6 @@ import android.os.PersistableBundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import ir.malihehmoradi.appupdater.helper.LocaleManager;
 
 public class ParentActivity extends AppCompatActivity {
 
@@ -20,7 +18,6 @@ public class ParentActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(newBase);
 
         String language = "fa";
         LocaleManager localeManager = new LocaleManager(newBase, language);
