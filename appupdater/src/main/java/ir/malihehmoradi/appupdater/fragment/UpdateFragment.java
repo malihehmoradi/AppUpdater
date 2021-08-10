@@ -138,10 +138,6 @@ public class UpdateFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        //Get permission of read and write on files
-        checkStorageGranted();
-
         initView(view);
     }
 
@@ -188,7 +184,6 @@ public class UpdateFragment extends DialogFragment {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 if (checkStorageGranted()) {
                     downloadApp(appConfig.appUrl);
