@@ -1,5 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="ActivityTheme">
+        <item name="fontFamily">@font/shabnam</item>
+    </style>
+
     <style name="ExpandedTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@android:color/white</item>
