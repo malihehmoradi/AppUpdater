@@ -52,12 +52,12 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:layout_marginTop="8dp"
-                        android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:padding="8dp"
                         android:text="@string/caption"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txt_appVersion"

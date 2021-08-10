@@ -24,6 +24,7 @@
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/CollapsedTextAppearance"
             app:contentScrim="?attr/colorPrimary"
+            app:title="@string/update_app"
             app:expandedTitleTextAppearance="@style/ExpandedTextAppearance"
             app:layout_scrollFlags="scroll"
             app:toolbarId="@+id/toolbar">

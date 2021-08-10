@@ -141,9 +141,8 @@ public class UpdateFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = view.findViewById(R.id.toolbar_layout);
-        collapsingToolbarLayout.setTitle(getResources().getString(R.string.update_app));
-
+//        CollapsingToolbarLayout collapsingToolbarLayout = view.findViewById(R.id.toolbar_layout);
+//        collapsingToolbarLayout.setTitle(getResources().getString(R.string.update_app));
 
         initView(view);
     }
