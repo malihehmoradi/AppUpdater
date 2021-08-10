@@ -89,10 +89,17 @@ public class UpdateChecker {
                 FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
                 updateFragment.show(fragmentTransaction, updateFragment.getTag());
 
+            } else {
+                if (onUpdateListener != null) {
+                    onUpdateListener.onCancel();
+                }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            if (onUpdateListener != null) {
+                onUpdateListener.onCancel();
+            }
         }
     }
 
