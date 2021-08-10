@@ -1,7 +1,5 @@
 package ir.malihehmoradi.AppUpdater;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -20,7 +18,7 @@ public class MainActivity extends ParentActivity {
                 "App optimization",
                 "http://appcdn.atishahr.net:8080/application/app.apk",
                 "1.0.0")
-                .setOnFailUpdate(new UpdateChecker.OnFailListener() {
+                .setOnUpdateListener(new UpdateChecker.OnUpdateListener() {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(MainActivity.this, "Update successful", Toast.LENGTH_SHORT).show();

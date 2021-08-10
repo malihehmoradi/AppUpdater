@@ -15,7 +15,7 @@ public class UpdateChecker {
     private final String changes;
     private final String appUrl;
     private final String necessaryVersion;
-    private OnFailListener onFailListener;
+    private OnUpdateListener onUpdateListener;
 
     /***
      *
@@ -33,12 +33,12 @@ public class UpdateChecker {
         this.necessaryVersion = necessaryVersion;
     }
 
-    public UpdateChecker setOnFailUpdate(OnFailListener onFailListener) {
-        this.onFailListener = onFailListener;
+    public UpdateChecker setOnUpdateListener(OnUpdateListener onUpdateListener) {
+        this.onUpdateListener = onUpdateListener;
         return this;
     }
 
-    public interface OnFailListener {
+    public interface OnUpdateListener {
 
         void onSuccess();
 
@@ -67,22 +67,22 @@ public class UpdateChecker {
                 updateFragment.setOnFailUpdate(new UpdateFragment.OnUpdateListener() {
                     @Override
                     public void onSuccess() {
-                        if (onFailListener != null) {
-                            onFailListener.onSuccess();
+                        if (onUpdateListener != null) {
+                            onUpdateListener.onSuccess();
                         }
                     }
 
                     @Override
                     public void onCancel() {
-                        if (onFailListener != null) {
-                            onFailListener.onCancel();
+                        if (onUpdateListener != null) {
+                            onUpdateListener.onCancel();
                         }
                     }
 
                     @Override
                     public void onFail() {
-                        if (onFailListener != null) {
-                            onFailListener.onFail();
+                        if (onUpdateListener != null) {
+                            onUpdateListener.onFail();
                         }
                     }
                 });

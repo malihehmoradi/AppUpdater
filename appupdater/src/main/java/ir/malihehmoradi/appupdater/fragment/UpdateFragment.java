@@ -29,6 +29,9 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
+import com.liulishuo.filedownloader.services.DownloadMgrInitialParams;
+import com.liulishuo.filedownloader.util.FileDownloadLog;
 
 import java.io.File;
 
@@ -115,7 +118,15 @@ public class UpdateFragment extends DialogFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        fileDownloaderConfig();
 
+    }
+
+    private void fileDownloaderConfig() {
+        // just for open the log in this demo project.
+        FileDownloadLog.NEED_LOG = true;
+
+        FileDownloader.setup(getActivity());
     }
 
     @Override

@@ -6,13 +6,4 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <application
-        android:name=".app.App">
-        <activity
-            android:name=".activity.UpdateActivity"
-            android:label="@string/title_activity_update"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
-    </application>
-
 </manifest>
