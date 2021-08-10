@@ -3,6 +3,8 @@
     <style name="ExpandedTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/iransans</item>
+        <item name="fontFamily">@font/iransans</item>
     </style>
 
     <style name="CollapsedTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">

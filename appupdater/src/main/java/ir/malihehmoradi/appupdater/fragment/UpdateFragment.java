@@ -119,7 +119,6 @@ public class UpdateFragment extends DialogFragment {
         }
 
         fileDownloaderConfig();
-
     }
 
     private void fileDownloaderConfig() {
