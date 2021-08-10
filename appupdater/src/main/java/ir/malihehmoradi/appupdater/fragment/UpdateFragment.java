@@ -25,11 +25,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.util.FileDownloadLog;
+
 import java.io.File;
+
 import ir.malihehmoradi.appupdater.R;
 import ir.malihehmoradi.appupdater.helper.Helper;
 import ir.malihehmoradi.appupdater.model.ApplicationConfig;
@@ -135,15 +138,9 @@ public class UpdateFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
 
-                //Get permission of read and write on files
-                checkStorageGranted();
-            }
-        }, 3000);
+        //Get permission of read and write on files
+        checkStorageGranted();
 
         initView(view);
     }
@@ -323,16 +320,11 @@ public class UpdateFragment extends DialogFragment {
     }
 
     public boolean checkStorageGranted() {
-
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                    return false;
-                }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
             }
-        }catch (Exception e){
-            e.printStackTrace();
         }
         return true;
     }
