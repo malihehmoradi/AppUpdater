@@ -10,18 +10,19 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ import java.io.File;
 
 import ir.malihehmoradi.appupdater.R;
 import ir.malihehmoradi.appupdater.helper.Helper;
-import ir.malihehmoradi.appupdater.model.ApplicationConfig;
+import ir.malihehmoradi.appupdater.model.AppConfig;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,17 +55,18 @@ public class UpdateFragment extends DialogFragment {
     private String mParam2;
 
     private static final String TAG = "UpdateActivity";
-    private static ApplicationConfig appConfig;
+    private static AppConfig appConfig;
     private ProgressBar progressBar;
     private LinearLayout lnr_percent;
     private TextView txt_percent;
     private TextView txt_error;
-    private Button btn_send;
-    private TextView txt_cancel;
+    private CardView btn_send;
+    private TextView txt_update;
+    private CardView txt_cancel;
     private OnUpdateListener onUpdateListener;
 
 
-    public UpdateFragment(ApplicationConfig appConfig) {
+    public UpdateFragment(AppConfig appConfig) {
         // Required empty public constructor
         this.appConfig = appConfig;
     }
@@ -127,8 +129,7 @@ public class UpdateFragment extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_update, container, false);
     }
@@ -143,22 +144,23 @@ public class UpdateFragment extends DialogFragment {
 
     private void initView(View view) {
         TextView txt_appVersion = view.findViewById(R.id.txt_appVersion);
-        TextView txt_description = view.findViewById(R.id.txt_description);
+//        TextView txt_description = view.findViewById(R.id.txt_description);
         progressBar = view.findViewById(R.id.progressBar);
-        txt_cancel = view.findViewById(R.id.txt_cancel);
-        btn_send = view.findViewById(R.id.btn_send);
+        txt_cancel = view.findViewById(R.id.btn_cancel);
+        btn_send = view.findViewById(R.id.btn_update);
+        txt_update = view.findViewById(R.id.txt_update);
         lnr_percent = view.findViewById(R.id.lnr_percent);
         txt_percent = view.findViewById(R.id.txt_percent);
         txt_error = view.findViewById(R.id.txt_error);
         TextView txt_appLink = view.findViewById(R.id.txt_appLink);
-
+        FrameLayout frame_recent_changes = view.findViewById(R.id.frame_recent_changes);
 
         //App Version
         String currentVersion = Helper.getVersionName(getContext());
         txt_appVersion.setText(String.format(getResources().getString(R.string.message_new_version), currentVersion, appConfig.versionName));
 
         //Recent changes
-        txt_description.setText(appConfig.changes);
+//        txt_description.setText(appConfig.changes);
 
         //App link
         txt_appLink.setText(appConfig.appUrl);
@@ -191,6 +193,12 @@ public class UpdateFragment extends DialogFragment {
 
             }
         });
+
+
+        //Frame recent changes
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.frame_recent_changes, new RecentChangesFragment(appConfig.changes)).commit();
+
     }
 
     private void downloadApp(String appUrl) {
@@ -288,7 +296,7 @@ public class UpdateFragment extends DialogFragment {
 
                 //Show Btn Resume and Cancel
                 btn_send.setVisibility(View.VISIBLE);
-                btn_send.setText(getResources().getString(R.string.retry));
+                txt_update.setText(getResources().getString(R.string.retry));
                 txt_cancel.setVisibility(View.VISIBLE);
 
             }

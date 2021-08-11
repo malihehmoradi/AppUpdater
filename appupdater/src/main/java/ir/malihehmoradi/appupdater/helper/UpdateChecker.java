@@ -6,31 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import ir.malihehmoradi.appupdater.fragment.UpdateFragment;
-import ir.malihehmoradi.appupdater.model.ApplicationConfig;
+import ir.malihehmoradi.appupdater.model.AppConfig;
 
 public class UpdateChecker {
 
     private final AppCompatActivity activity;
-    private final String versionName;
-    private final String changes;
-    private final String appUrl;
-    private final String necessaryVersion;
+    private final AppConfig appConfig;
     private OnUpdateListener onUpdateListener;
 
     /***
      *
      * @param  activity
-     * @param versionName
-     * @param changes
-     * @param appUrl
-     * @param necessaryVersion
+     * @param appConfig
      */
-    public UpdateChecker(AppCompatActivity activity, String versionName, String changes, String appUrl, String necessaryVersion) {
+    public UpdateChecker(AppCompatActivity activity, AppConfig appConfig) {
         this.activity = activity;
-        this.versionName = versionName;
-        this.changes = changes;
-        this.appUrl = appUrl;
-        this.necessaryVersion = necessaryVersion;
+        this.appConfig = appConfig;
     }
 
     public UpdateChecker setOnUpdateListener(OnUpdateListener onUpdateListener) {
@@ -54,14 +45,7 @@ public class UpdateChecker {
         try {
             packageInfo = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
 
-            if (Helper.compareVersionNames(packageInfo.versionName, versionName) < 0) {
-
-                ApplicationConfig appConfig = new ApplicationConfig();
-                appConfig.versionName = versionName;
-                appConfig.changes = changes;
-                appConfig.appUrl = appUrl;
-                appConfig.necessaryVersion = necessaryVersion;
-
+            if (Helper.compareVersionNames(packageInfo.versionName, appConfig.versionName) < 0) {
 
                 UpdateFragment updateFragment = new UpdateFragment(appConfig);
                 updateFragment.setOnFailUpdate(new UpdateFragment.OnUpdateListener() {
