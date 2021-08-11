@@ -26,17 +26,17 @@ public class MainActivity extends ParentActivity {
 
         AppConfig.Change change = new AppConfig.Change();
         change.date = "1400/05/20";
-        change.desciption = "افزودن ماژول آپدیت درون برنامه ای\nرفع مشکلات جزئی";
+        change.description = "افزودن ماژول آپدیت درون برنامه ای\nرفع مشکلات جزئی";
         changes.add(change);
 
         change = new AppConfig.Change();
         change.date = "1400/05/12";
-        change.desciption = "اتصال وب اپلیکیشن به صفحه اصلی \nرفع مشکلات جزئی";
+        change.description = "اتصال وب اپلیکیشن به صفحه اصلی \nرفع مشکلات جزئی";
         changes.add(change);
 
         change = new AppConfig.Change();
         change.date = "1400/05/06";
-        change.desciption = "افزودن صفحه معرفی به برنامه \nافزودن صفحه ثبت نام و ورود\n افزودن صفحه اصلی به برنامه";
+        change.description = "افزودن صفحه معرفی به برنامه \nافزودن صفحه ثبت نام و ورود\n افزودن صفحه اصلی به برنامه";
         changes.add(change);
         appConfig.changes = changes;
 

@@ -16,6 +16,6 @@ public class AppConfig {
 
     public static class Change {
         public String date;
-        public String desciption;
+        public String description;
     }
 }
