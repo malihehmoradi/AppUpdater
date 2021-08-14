@@ -197,7 +197,7 @@ public class UpdateFragment extends DialogFragment {
 
         //Frame recent changes
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.frame_recent_changes, new RecentChangesFragment(appConfig.changes)).commit();
+        fragmentTransaction.add(R.id.frame_recent_changes, new RecentChangesFragment(appConfig.recentChanges)).commit();
 
     }
 

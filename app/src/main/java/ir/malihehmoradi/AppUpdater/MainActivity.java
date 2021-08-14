@@ -38,7 +38,7 @@ public class MainActivity extends ParentActivity {
         change.date = "1400/05/06";
         change.description = "افزودن صفحه معرفی به برنامه \nافزودن صفحه ثبت نام و ورود\n افزودن صفحه اصلی به برنامه";
         changes.add(change);
-        appConfig.changes = changes;
+        appConfig.recentChanges = changes;
 
         new UpdateChecker(this, appConfig)
                 .setOnUpdateListener(new UpdateChecker.OnUpdateListener() {

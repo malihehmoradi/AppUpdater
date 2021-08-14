@@ -7,7 +7,7 @@ public class AppConfig {
     public Integer versionCode;
     public String versionName;
     public String necessaryVersion;
-    public List<Change> changes;
+    public List<Change> recentChanges;
     public String appUrl;
     public String betaVersion;
     public String betaUrl;
