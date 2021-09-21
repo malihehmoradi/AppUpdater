@@ -1,25 +1,24 @@
-package ir.malihehmoradi.appupdater.dialog;
+package ir.malihehmoradi.appupdater.activity;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.gson.Gson;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -28,57 +27,43 @@ import java.io.File;
 
 import ir.malihehmoradi.appupdater.R;
 import ir.malihehmoradi.appupdater.helper.Helper;
+import ir.malihehmoradi.appupdater.model.ApplicationConfig;
 
-public class UpdaterDialog extends Dialog {
-
-    private static final String TAG = UpdaterDialog.class.getSimpleName();
+public class InAppUpdateActivity extends AppCompatActivity {
 
 
-    private Activity activity;
+    private static final String TAG = "InAppUpdateActivity";
+    private static ApplicationConfig appConfig;
     private ProgressBar progressBar;
     private LinearLayout lnr_percent;
     private TextView txt_percent;
     private TextView txt_error;
     private Button btn_send;
     private TextView txt_cancel;
-
-    /**
-     *
-     */
-    private final String versionName;
-    private final String changes;
-    private final String appUrl;
-    private final String necessaryVersion;
+    private OnUpdateListener onUpdateListener;
 
 
-    /***
-     *
-     * @param activity
-     * @param versionName
-     * @param changes
-     * @param appUrl
-     * @param necessaryVersion
-     */
-    public UpdaterDialog(@NonNull Activity activity, @NonNull String versionName, @NonNull String changes, @NonNull String appUrl, @NonNull String necessaryVersion) {
-        super(activity);
-        this.activity = activity;
-        this.versionName = versionName;
-        this.changes = changes;
-        this.appUrl = appUrl;
-        this.necessaryVersion = necessaryVersion;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getIntentData();
+        setContentView(R.layout.activity_in_app_update);
+
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setTitle(getResources().getString(R.string.update_app));
 
 
-        View parentView = activity.getWindow().getDecorView().findViewById(android.R.id.content);
-        View view = LayoutInflater.from(activity).inflate(R.layout.view_update, (ViewGroup) parentView, false);
-        setContentView(view);
-        setCancelable(true);
-        setCanceledOnTouchOutside(true);
-        getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MASK_STATE);
-//        getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
         initView();
-        getWindow().addFlags(Window.FEATURE_NO_TITLE);
+
+    }
+
+    private void getIntentData() {
+        Bundle bundle = getIntent().getExtras();
+        String appConfigStr = bundle.getString("AppConfig");
+
+        appConfig = new Gson().fromJson(appConfigStr, ApplicationConfig.class);
+
     }
 
     private void initView() {
@@ -94,17 +79,17 @@ public class UpdaterDialog extends Dialog {
 
 
         //App Version
-        String currentVersion = Helper.getVersionName(activity);
-        txt_appVersion.setText(String.format(activity.getResources().getString(R.string.message_new_version), currentVersion, versionName));
+        String currentVersion = Helper.getVersionName(getApplicationContext());
+        txt_appVersion.setText(String.format(getResources().getString(R.string.message_new_version), currentVersion, appConfig.versionName));
 
-        //Description
-        txt_description.setText(activity.getResources().getString(R.string.app_change) + "\n" + changes);
+        //Recent changes
+//        txt_description.setText(appConfig.recentChanges);
 
         //App link
-        txt_appLink.setText(appUrl);
+        txt_appLink.setText(appConfig.appUrl);
 
         //Cancel
-        if (Helper.compareVersionNames(necessaryVersion, Helper.getVersionName(getContext())) <= 0) {
+        if (Helper.compareVersionNames(appConfig.necessaryVersion, Helper.getVersionName(getApplicationContext())) <= 0) {
             txt_cancel.setVisibility(View.VISIBLE);
         } else {
             txt_cancel.setVisibility(View.GONE);
@@ -113,7 +98,10 @@ public class UpdaterDialog extends Dialog {
             @Override
             public void onClick(View v) {
 
-                dismiss();
+                if (onUpdateListener != null) {
+                    finish();
+                    onUpdateListener.onCancel();
+                }
             }
         });
 
@@ -122,7 +110,11 @@ public class UpdaterDialog extends Dialog {
             @Override
             public void onClick(View v) {
 
-                downloadApp(appUrl);
+                if (!isStorageGranted()) {
+                    checkStorageGranted();
+                } else {
+                    downloadApp(appConfig.appUrl);
+                }
 
             }
         });
@@ -130,7 +122,7 @@ public class UpdaterDialog extends Dialog {
 
     private void downloadApp(String appUrl) {
 
-        String fileName = "Vahram" + "_v" + versionName + ".apk";
+        String fileName = "Vahram" + "_v" + appConfig.versionName + ".apk";
         String destinationPath = Environment.getExternalStorageDirectory() + "/" + "Vahram" + "/" + fileName;
 
         FileDownloadListener fileDownloadListener = new FileDownloadListener() {
@@ -188,13 +180,17 @@ public class UpdaterDialog extends Dialog {
 
                 //Show successful message
                 txt_error.setTextColor(Color.GREEN);
-                txt_error.setText(activity.getResources().getString(R.string.message_success_update));
+                txt_error.setText(getResources().getString(R.string.message_success_update));
 
 
                 //Install app
-                Helper.installApk(activity, new File(destinationPath));
-                dismiss();
+                Helper.installApk(InAppUpdateActivity.this, new File(destinationPath));
 
+
+                if (onUpdateListener != null) {
+                    finish();
+                    onUpdateListener.onSuccess();
+                }
             }
 
             @Override
@@ -219,9 +215,8 @@ public class UpdaterDialog extends Dialog {
 
                 //Show Btn Resume and Cancel
                 btn_send.setVisibility(View.VISIBLE);
-                btn_send.setText(getContext().getResources().getString(R.string.retry));
+                btn_send.setText(getResources().getString(R.string.retry));
                 txt_cancel.setVisibility(View.VISIBLE);
-
             }
 
             @Override
@@ -229,6 +224,7 @@ public class UpdaterDialog extends Dialog {
                 Log.d(TAG, "warn: ");
                 progressBar.setIndeterminate(false);
             }
+
         };
 
 
@@ -245,20 +241,44 @@ public class UpdaterDialog extends Dialog {
                 .start();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        FileDownloader.getImpl().pauseAll();
+    public void checkStorageGranted() {
+        // Get permission of read and write on files
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        }
+    }
+
+    public boolean isStorageGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public interface OnUpdateListener {
+
+        void onSuccess();
+
+        void onCancel();
+
+        void onFail();
+
     }
 
     @Override
-    public void setOnCancelListener(@Nullable DialogInterface.OnCancelListener listener) {
-        super.setOnCancelListener(listener);
-    }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-    @Override
-    public void setOnDismissListener(@Nullable DialogInterface.OnDismissListener listener) {
-        super.setOnDismissListener(listener);
-    }
 
+        if (requestCode == 1) {
+            if (isStorageGranted()) {
+                downloadApp(appConfig.appUrl);
+            }
+        }
+
+    }
 }

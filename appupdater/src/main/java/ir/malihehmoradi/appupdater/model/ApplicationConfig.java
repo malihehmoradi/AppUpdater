@@ -1,14 +1,18 @@
 package ir.malihehmoradi.appupdater.model;
 
+import java.util.List;
+
 public class ApplicationConfig {
 
     public Integer versionCode;
     public String versionName;
     public String necessaryVersion;
-    public String changes;
+    public List<RecentChange> recentChanges;
     public String appUrl;
-    public String betaVersion;
-    public String betaUrl;
-    public Integer adminPass;
+
+    public class RecentChange{
+        public String date;
+        public String description;
+    }
 
 }

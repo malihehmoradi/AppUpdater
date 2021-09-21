@@ -1,11 +1,13 @@
 package ir.malihehmoradi.AppUpdater;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import ir.malihehmoradi.appupdater.helper.Helper;
 import ir.malihehmoradi.appupdater.helper.UpdateChecker;
+import ir.malihehmoradi.appupdater.model.ApplicationConfig;
+
 
 public class MainActivity extends ParentActivity {
 
@@ -14,29 +16,12 @@ public class MainActivity extends ParentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new UpdateChecker(
-                this,
-                "1.0.1",
-                "App optimization",
-                "http://appcdn.atishahr.net:8080/application/app.apk",
-                "1.0.0")
-                .setOnFailUpdate(new UpdateChecker.OnFailListener() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(MainActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
-                    }
 
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(MainActivity.this, "Update canceled", Toast.LENGTH_SHORT).show();
-                    }
+        ApplicationConfig applicationConfig = new Gson().fromJson(Helper.readJsonFileFromAssets(getApplicationContext()), ApplicationConfig.class);
 
-                    @Override
-                    public void onFail() {
-                        Toast.makeText(MainActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .check();
+
+        new UpdateChecker(this, applicationConfig).check();
+
     }
 
 
