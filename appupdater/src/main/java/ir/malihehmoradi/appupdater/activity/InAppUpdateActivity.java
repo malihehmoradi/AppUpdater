@@ -23,6 +23,8 @@ import com.google.gson.Gson;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.connection.FileDownloadUrlConnection;
+import com.liulishuo.filedownloader.util.FileDownloadLog;
 
 import java.io.File;
 
@@ -32,7 +34,6 @@ import ir.malihehmoradi.appupdater.helper.Helper;
 import ir.malihehmoradi.appupdater.model.AppConfig;
 
 public class InAppUpdateActivity extends AppCompatActivity {
-
 
     private static final String TAG = "InAppUpdateActivity";
     private static AppConfig appConfig;
@@ -56,10 +57,10 @@ public class InAppUpdateActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
         collapsingToolbarLayout.setTitle(getResources().getString(R.string.update_app));
 
-
         initView();
-
+        fileDownloaderConfig();
     }
+
 
     private void getIntentData() {
         Bundle bundle = getIntent().getExtras();
@@ -124,6 +125,12 @@ public class InAppUpdateActivity extends AppCompatActivity {
         //Frame recent changes
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.frame_recent_changes, new RecentChangesFragment(appConfig.recentChanges)).commit();
+    }
+
+    private void fileDownloaderConfig() {
+        // just for open the log in this demo project.
+        FileDownloadLog.NEED_LOG = true;
+        FileDownloader.setup(this);
     }
 
     private void downloadApp(String appUrl) {
