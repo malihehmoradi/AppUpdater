@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
+    android:fitsSystemWindows="true"
     tools:context=".activity.InAppUpdateActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:background="@drawable/bg_blob"
+        android:background="@drawable/ic_bg_update"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         app:elevation="0dp">
@@ -22,22 +23,11 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/CollapsedTextAppearance"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@android:color/transparent"
             app:expandedTitleTextAppearance="@style/ExpandedTextAppearance"
             app:layout_scrollFlags="scroll"
+            app:title="@string/update_app"
             app:toolbarId="@+id/toolbar">
-
-            <ImageView
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:padding="4dp"
-                app:elevation="20dp"
-                app:layout_collapseMode="pin"
-                app:layout_collapseParallaxMultiplier="0.8"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:srcCompat="@drawable/ic_update" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -46,11 +36,9 @@
                 android:gravity="center_horizontal"
                 android:textAlignment="center"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:layout_scrollFlags="scroll"
                 app:popupTheme="@style/Theme.MaterialComponents.Light"
-                app:titleTextColor="@android:color/white">
-
-            </androidx.appcompat.widget.Toolbar>
+                app:titleTextColor="@android:color/white" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

@@ -19,7 +19,7 @@ public class ParentActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
 
-        String language = "fa";
+        String language = "en";
         LocaleManager localeManager = new LocaleManager(newBase, language);
         super.attachBaseContext(localeManager.wrap());
         applyOverrideConfiguration(localeManager.getConfiguration());

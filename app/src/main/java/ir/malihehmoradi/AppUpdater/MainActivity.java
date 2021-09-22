@@ -6,8 +6,7 @@ import com.google.gson.Gson;
 
 import ir.malihehmoradi.appupdater.helper.Helper;
 import ir.malihehmoradi.appupdater.helper.UpdateChecker;
-import ir.malihehmoradi.appupdater.model.ApplicationConfig;
-
+import ir.malihehmoradi.appupdater.model.AppConfig;
 
 public class MainActivity extends ParentActivity {
 
@@ -17,10 +16,10 @@ public class MainActivity extends ParentActivity {
         setContentView(R.layout.activity_main);
 
 
-        ApplicationConfig applicationConfig = new Gson().fromJson(Helper.readJsonFileFromAssets(getApplicationContext()), ApplicationConfig.class);
+        AppConfig appConfig = new Gson().fromJson(Helper.readJsonFileFromAssets(getApplicationContext()), AppConfig.class);
 
 
-        new UpdateChecker(this, applicationConfig).check();
+        new UpdateChecker(this, appConfig).check();
 
     }
 

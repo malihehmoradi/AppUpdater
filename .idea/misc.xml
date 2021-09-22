@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/layout/activity_in_app_update.xml" value="0.33697916666666666" />
+        <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/layout/activity_in_app_update.xml" value="0.25" />
         <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/layout/activity_update.xml" value="0.23072916666666668" />
         <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/layout/content_scrolling.xml" value="0.30520833333333336" />
+        <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/layout/fragment_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/layout/fragment_item_list.xml" value="0.36666666666666664" />
         <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/layout/fragment_update.xml" value="0.35104166666666664" />
         <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/layout/view_update.xml" value="0.36666666666666664" />
         <entry key="..\:/MalihehMoradi/Projects/AppUpdater/appupdater/src/main/res/menu/menu_update.xml" value="0.23072916666666668" />

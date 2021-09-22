@@ -2,7 +2,9 @@ package ir.malihehmoradi.appupdater.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -12,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,20 +27,22 @@ import com.liulishuo.filedownloader.FileDownloader;
 import java.io.File;
 
 import ir.malihehmoradi.appupdater.R;
+import ir.malihehmoradi.appupdater.fragment.RecentChangesFragment;
 import ir.malihehmoradi.appupdater.helper.Helper;
-import ir.malihehmoradi.appupdater.model.ApplicationConfig;
+import ir.malihehmoradi.appupdater.model.AppConfig;
 
 public class InAppUpdateActivity extends AppCompatActivity {
 
 
     private static final String TAG = "InAppUpdateActivity";
-    private static ApplicationConfig appConfig;
+    private static AppConfig appConfig;
     private ProgressBar progressBar;
     private LinearLayout lnr_percent;
     private TextView txt_percent;
     private TextView txt_error;
-    private Button btn_send;
-    private TextView txt_cancel;
+    private CardView btn_update;
+    private TextView txt_update;
+    private CardView btn_cancel;
     private OnUpdateListener onUpdateListener;
 
 
@@ -62,7 +65,7 @@ public class InAppUpdateActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String appConfigStr = bundle.getString("AppConfig");
 
-        appConfig = new Gson().fromJson(appConfigStr, ApplicationConfig.class);
+        appConfig = new Gson().fromJson(appConfigStr, AppConfig.class);
 
     }
 
@@ -70,8 +73,9 @@ public class InAppUpdateActivity extends AppCompatActivity {
         TextView txt_appVersion = findViewById(R.id.txt_appVersion);
         TextView txt_description = findViewById(R.id.txt_description);
         progressBar = findViewById(R.id.progressBar);
-        txt_cancel = findViewById(R.id.txt_cancel);
-        btn_send = findViewById(R.id.btn_send);
+        btn_cancel = findViewById(R.id.btn_cancel);
+        btn_update = findViewById(R.id.btn_update);
+        txt_update = findViewById(R.id.txt_update);
         lnr_percent = findViewById(R.id.lnr_percent);
         txt_percent = findViewById(R.id.txt_percent);
         txt_error = findViewById(R.id.txt_error);
@@ -82,31 +86,29 @@ public class InAppUpdateActivity extends AppCompatActivity {
         String currentVersion = Helper.getVersionName(getApplicationContext());
         txt_appVersion.setText(String.format(getResources().getString(R.string.message_new_version), currentVersion, appConfig.versionName));
 
-        //Recent changes
-//        txt_description.setText(appConfig.recentChanges);
 
         //App link
         txt_appLink.setText(appConfig.appUrl);
 
         //Cancel
         if (Helper.compareVersionNames(appConfig.necessaryVersion, Helper.getVersionName(getApplicationContext())) <= 0) {
-            txt_cancel.setVisibility(View.VISIBLE);
+            btn_cancel.setVisibility(View.VISIBLE);
         } else {
-            txt_cancel.setVisibility(View.GONE);
+            btn_cancel.setVisibility(View.GONE);
         }
-        txt_cancel.setOnClickListener(new View.OnClickListener() {
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                finish();
                 if (onUpdateListener != null) {
-                    finish();
                     onUpdateListener.onCancel();
                 }
             }
         });
 
         //Send Button
-        btn_send.setOnClickListener(new View.OnClickListener() {
+        btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -118,6 +120,10 @@ public class InAppUpdateActivity extends AppCompatActivity {
 
             }
         });
+
+        //Frame recent changes
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.frame_recent_changes, new RecentChangesFragment(appConfig.recentChanges)).commit();
     }
 
     private void downloadApp(String appUrl) {
@@ -159,8 +165,8 @@ public class InAppUpdateActivity extends AppCompatActivity {
 
 
                 //Show ProgressBar
-                btn_send.setVisibility(View.GONE);
-                txt_cancel.setVisibility(View.GONE);
+                btn_update.setVisibility(View.GONE);
+                btn_cancel.setVisibility(View.GONE);
 
                 //Show Percent
                 progressBar.setVisibility(View.VISIBLE);
@@ -187,8 +193,8 @@ public class InAppUpdateActivity extends AppCompatActivity {
                 Helper.installApk(InAppUpdateActivity.this, new File(destinationPath));
 
 
+                finish();
                 if (onUpdateListener != null) {
-                    finish();
                     onUpdateListener.onSuccess();
                 }
             }
@@ -214,9 +220,9 @@ public class InAppUpdateActivity extends AppCompatActivity {
 
 
                 //Show Btn Resume and Cancel
-                btn_send.setVisibility(View.VISIBLE);
-                btn_send.setText(getResources().getString(R.string.retry));
-                txt_cancel.setVisibility(View.VISIBLE);
+                btn_update.setVisibility(View.VISIBLE);
+                txt_update.setText(getResources().getString(R.string.retry));
+                btn_cancel.setVisibility(View.VISIBLE);
             }
 
             @Override

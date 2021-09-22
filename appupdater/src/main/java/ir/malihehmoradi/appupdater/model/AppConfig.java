@@ -2,17 +2,18 @@ package ir.malihehmoradi.appupdater.model;
 
 import java.util.List;
 
-public class ApplicationConfig {
+public class AppConfig {
 
     public Integer versionCode;
     public String versionName;
     public String necessaryVersion;
-    public List<RecentChange> recentChanges;
+    public List<Change> recentChanges;
     public String appUrl;
 
-    public class RecentChange{
+
+
+    public static class Change {
         public String date;
         public String description;
     }
-
 }

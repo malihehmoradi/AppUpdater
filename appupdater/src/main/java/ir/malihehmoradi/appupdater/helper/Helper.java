@@ -7,8 +7,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.core.content.FileProvider;
 
@@ -19,12 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Helper {
-
-    public static void fullScreenActivity(Activity activity) {
-        // remove title
-        activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
 
     public static void installApk(Activity activity, File apkFile) {
 

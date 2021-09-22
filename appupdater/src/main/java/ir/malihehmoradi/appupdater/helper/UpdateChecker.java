@@ -7,29 +7,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 
-import ir.malihehmoradi.appupdater.model.ApplicationConfig;
+import ir.malihehmoradi.appupdater.activity.InAppUpdateActivity;
+import ir.malihehmoradi.appupdater.model.AppConfig;
 
 public class UpdateChecker {
 
     private final AppCompatActivity activity;
-    private final ApplicationConfig appConfig;
-    private OnFailListener onFailListener;
+    private final AppConfig appConfig;
+    private OnUpdateListener onUpdateListener;
 
     /***
      *
      * @param  activity
+     * @param appConfig
      */
-    public UpdateChecker(AppCompatActivity activity, ApplicationConfig appConfig) {
+    public UpdateChecker(AppCompatActivity activity, AppConfig appConfig) {
         this.activity = activity;
         this.appConfig = appConfig;
     }
 
-    public UpdateChecker setOnFailUpdate(OnFailListener onFailListener) {
-        this.onFailListener = onFailListener;
+    public UpdateChecker setOnUpdateListener(OnUpdateListener onUpdateListener) {
+        this.onUpdateListener = onUpdateListener;
         return this;
     }
 
-    public interface OnFailListener {
+    public interface OnUpdateListener {
 
         void onSuccess();
 
@@ -47,17 +49,23 @@ public class UpdateChecker {
 
             if (Helper.compareVersionNames(packageInfo.versionName, appConfig.versionName) < 0) {
 
-                try {
-                    Intent intent = new Intent(activity, Class.forName("ir.malihehmoradi.appupdater.activity.InAppUpdateActivity"));
-                    intent.putExtra("AppConfig", new Gson().toJson(appConfig));
-                    activity.startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                Intent intent = new Intent(activity, InAppUpdateActivity.class);
+                intent.putExtra("AppConfig",new Gson().toJson(appConfig));
+                activity.startActivity(intent);
+
+
+            } else {
+                if (onUpdateListener != null) {
+                    onUpdateListener.onCancel();
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+
+            if (onUpdateListener != null) {
+                onUpdateListener.onCancel();
+            }
         }
     }
 

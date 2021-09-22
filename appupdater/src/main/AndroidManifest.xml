@@ -6,12 +6,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <application android:name=".app.App">
+    <application
+        android:name=".app.App">
         <activity
             android:name=".activity.InAppUpdateActivity"
             android:exported="false"
-            android:theme="@style/NoActionBar"
-            />
+            android:theme="@style/ActivityTheme" />
     </application>
 
 </manifest>
