@@ -53,6 +53,27 @@ public class UpdateChecker {
                 intent.putExtra("AppConfig",new Gson().toJson(appConfig));
                 activity.startActivity(intent);
 
+                InAppUpdateActivity.setOnUpdateListener(new InAppUpdateActivity.OnUpdateListener() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        if (onUpdateListener != null) {
+                            onUpdateListener.onCancel();
+                        }
+                    }
+
+                    @Override
+                    public void onFail() {
+                        if (onUpdateListener != null) {
+                            onUpdateListener.onFail();
+                        }
+                    }
+                });
+
 
             } else {
                 if (onUpdateListener != null) {
@@ -64,7 +85,7 @@ public class UpdateChecker {
             e.printStackTrace();
 
             if (onUpdateListener != null) {
-                onUpdateListener.onCancel();
+                onUpdateListener.onFail();
             }
         }
     }
