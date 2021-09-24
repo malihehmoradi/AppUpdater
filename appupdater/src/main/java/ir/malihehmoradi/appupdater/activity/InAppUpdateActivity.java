@@ -31,6 +31,7 @@ import java.io.File;
 import ir.malihehmoradi.appupdater.R;
 import ir.malihehmoradi.appupdater.fragment.RecentChangesFragment;
 import ir.malihehmoradi.appupdater.helper.Helper;
+import ir.malihehmoradi.appupdater.helper.UpdateChecker;
 import ir.malihehmoradi.appupdater.model.AppConfig;
 
 public class InAppUpdateActivity extends AppCompatActivity {
@@ -44,7 +45,7 @@ public class InAppUpdateActivity extends AppCompatActivity {
     private CardView btn_update;
     private TextView txt_update;
     private CardView btn_cancel;
-    private OnUpdateListener onUpdateListener;
+    private static OnUpdateListener onUpdateListener;
 
 
     @Override
@@ -270,6 +271,11 @@ public class InAppUpdateActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+
+    public static void setOnUpdateListener(OnUpdateListener onUpdateListener) {
+        InAppUpdateActivity.onUpdateListener = onUpdateListener;
     }
 
     public interface OnUpdateListener {
