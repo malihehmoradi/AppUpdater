@@ -172,16 +172,16 @@ public class InAppUpdateActivity extends AppCompatActivity {
                 }
 
 
-                //Show ProgressBar
+                // Show ProgressBar
                 btn_update.setVisibility(View.GONE);
                 btn_cancel.setVisibility(View.GONE);
 
-                //Show Percent
+                // Show Percent
                 progressBar.setVisibility(View.VISIBLE);
                 lnr_percent.setVisibility(View.VISIBLE);
                 txt_percent.setText((int) (percent * 100) + "");
 
-                //Hide error
+                // Hide error
                 txt_error.setVisibility(View.GONE);
             }
 
@@ -189,15 +189,11 @@ public class InAppUpdateActivity extends AppCompatActivity {
             protected void completed(BaseDownloadTask task) {
                 Log.d(TAG, "completed: ");
 
+
                 progressBar.setIndeterminate(false);
 
 
-                //Show successful message
-                txt_error.setTextColor(Color.GREEN);
-                txt_error.setText(getResources().getString(R.string.message_success_update));
-
-
-                //Install app
+                // Install app
                 Helper.installApk(InAppUpdateActivity.this, new File(destinationPath));
 
 
@@ -205,6 +201,7 @@ public class InAppUpdateActivity extends AppCompatActivity {
                 if (onUpdateListener != null) {
                     onUpdateListener.onSuccess();
                 }
+
             }
 
             @Override

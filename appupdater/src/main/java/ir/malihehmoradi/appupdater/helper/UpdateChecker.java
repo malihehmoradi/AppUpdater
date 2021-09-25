@@ -50,7 +50,7 @@ public class UpdateChecker {
             if (Helper.compareVersionNames(packageInfo.versionName, appConfig.versionName) < 0) {
 
                 Intent intent = new Intent(activity, InAppUpdateActivity.class);
-                intent.putExtra("AppConfig",new Gson().toJson(appConfig));
+                intent.putExtra("AppConfig", new Gson().toJson(appConfig));
                 activity.startActivity(intent);
 
                 InAppUpdateActivity.setOnUpdateListener(new InAppUpdateActivity.OnUpdateListener() {
